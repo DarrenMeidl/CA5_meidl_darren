@@ -80,6 +80,26 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                 }
         );
     }
+
+    @Override
+    public Circuit insertCircuit(Circuit c) throws DaoException {
+        return SQLConnectionDecorator(
+                (sql) -> {
+                    // Gather data of this circuit object
+                    int newID = c.getId();
+                    String newCircuitName = c.getCircuitName();
+                    String newCountry = c.getCountry();
+                    float newLength = c.getLength();
+                    int newTurns = c.getTurns();
+                    // Create instance of Circuit object based on values from passed in 'c' object
+                    Circuit newC = new Circuit(newID, newCircuitName, newCountry, newLength, newTurns);
+
+
+
+                    return newC;
+                }
+        );
+    }
 }
 
 
