@@ -93,11 +93,26 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                     int newTurns = c.getTurns();
                     // Create instance of Circuit object based on values from passed in 'c' object
                     Circuit newC = new Circuit(newID, newCircuitName, newCountry, newLength, newTurns);
+                    // if the object
 
+                    String query2 = "INSERT INTO Circuits VALUES (null, ?, ?, ?, ?)";
+                    sql.statement = sql.connection.prepareStatement(query2);
+                    // Set the values in the statement to be of the new circuit object
+                    sql.statement.setString(1,newCircuitName);
+                    sql.statement.setString(2,newCountry);
+                    sql.statement.setFloat(3,newLength);
+                    sql.statement.setInt(4,newTurns);
+                    // Execute the query
+                    sql.statement.executeUpdate();
 
-
-                    return newC;
+                    Circuit next;
+                    while(sql.result.next()) { // Cycle through each row on the table
+                        int tempID = sql.result.getInt("id"); // Get the id of the current row
+                        newC.setId(tempID); // Set it to newC object
+                    }
+                    return newC; // Once the loop ends, it will ensure newC object has the id of the last row (which is the newC object we inserted)
                 }
+
         );
     }
 }
