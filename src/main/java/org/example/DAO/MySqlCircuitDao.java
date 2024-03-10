@@ -5,6 +5,7 @@ import org.example.Exceptions.DaoException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,10 +106,10 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                     // Execute the query
                     sql.statement.executeUpdate();
 
-                    Circuit next;
-                    while(sql.result.next()) { // Cycle through each row on the table
-                        int tempID = sql.result.getInt("id"); // Get the id of the current row
-                        newC.setId(tempID); // Set it to newC object
+                    ResultSet keys = sql.statement.getGeneratedKeys(); // get all the generated ids from the last statement executed (in this case 1)
+                    if (keys.next()){ // there is only 1 row in the result set, so no need for a loop
+                        int tempID = keys.getInt(1); // Get the id from the id column
+                        newC.setId(tempID); // set it to the newC object
                     }
                     return newC; // Once the loop ends, it will ensure newC object has the id of the last row (which is the newC object we inserted)
                 }
