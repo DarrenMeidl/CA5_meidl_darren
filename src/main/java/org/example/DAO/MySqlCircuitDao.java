@@ -94,24 +94,23 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                     int newTurns = c.getTurns();
                     // Create instance of Circuit object based on values from passed in 'c' object
                     Circuit newC = new Circuit(newID, newCircuitName, newCountry, newLength, newTurns);
-                    // if the object
-
-                    String query2 = "INSERT INTO Circuits VALUES (null, ?, ?, ?, ?)";
-                    sql.statement = sql.connection.prepareStatement(query2);
-                    // Set the values in the statement to be of the new circuit object
+                    // Create query
+                    String query = "INSERT INTO Circuits VALUES (null, ?, ?, ?, ?)";
+                    sql.statement = sql.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS); // Ensures that the key of the row can be returned later
+                    // Set the values in the insert statement to be of the new circuit object's values
                     sql.statement.setString(1,newCircuitName);
                     sql.statement.setString(2,newCountry);
                     sql.statement.setFloat(3,newLength);
                     sql.statement.setInt(4,newTurns);
                     // Execute the query
                     sql.statement.executeUpdate();
-
-                    ResultSet keys = sql.statement.getGeneratedKeys(); // get all the generated ids from the last statement executed (in this case 1)
-                    if (keys.next()){ // there is only 1 row in the result set, so no need for a loop
+                    // Get all the generated ids from the last statement executed (in this case: 1 row inserted = 1 id)
+                    ResultSet keys = sql.statement.getGeneratedKeys();
+                    if (keys.next()){ // only 1 row in the result set, no need for loop
                         int tempID = keys.getInt(1); // Get the id from the id column
-                        newC.setId(tempID); // set it to the newC object
+                        newC.setId(tempID); // set id to the newC object
                     }
-                    return newC; // Once the loop ends, it will ensure newC object has the id of the last row (which is the newC object we inserted)
+                    return newC; // After the if statement, it will ensure newC has the id of the row in the last executed statement (which is the newC object we passed in)
                 }
 
         );
