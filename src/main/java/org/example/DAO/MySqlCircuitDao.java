@@ -105,9 +105,9 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                     // Execute the query
                     sql.statement.executeUpdate();
                     // Get all the generated ids from the last statement executed (in this case: 1 row inserted = 1 id)
-                    ResultSet keys = sql.statement.getGeneratedKeys();
-                    if (keys.next()){ // only 1 row in the result set, no need for loop
-                        int tempID = keys.getInt(1); // Get the id from the id column
+                    sql.result = sql.statement.getGeneratedKeys();
+                    if (sql.result.next()){ // only 1 row in the result set, no need for loop
+                        int tempID = sql.result.getInt(1); // Get the id from the id column
                         newC.setId(tempID); // set id to the newC object
                     }
                     return newC; // After the if statement, it will ensure newC has the id of the row in the last executed statement (which is the newC object we passed in)
