@@ -116,7 +116,7 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
         );
     }
 
-    @Override // Written by Darren Meidl --- 14/03/2024 --- 45 min
+    @Override // Written by Darren Meidl --- 14/03/2024 --- 50 minutes
     public Circuit updateCircuit(int id, Circuit c) throws DaoException {
         return SQLConnectionDecorator(
                 (sql) -> {
