@@ -120,7 +120,25 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
     public Circuit updateCircuit(int id, Circuit c) throws DaoException {
         return SQLConnectionDecorator(
                 (sql) -> {
-                    return c;
+                    // Gather data of this circuit object
+                    String newCircuitName = c.getCircuitName();
+                    String newCountry = c.getCountry();
+                    float newLength = c.getLength();
+                    int newTurns = c.getTurns();
+                    // Create instance of Circuit object based on values from passed in 'c' object
+                    Circuit newC = new Circuit(id, newCircuitName, newCountry, newLength, newTurns);
+                    // Create query
+                    String query = "UPDATE Circuits SET circuit_name = ?, country = ?, length = ?, turns = ? WHERE id = ?";
+                    sql.statement = sql.connection.prepareStatement(query);
+                    // Set the values in the update statement to be of the new circuit object's values
+                    sql.statement.setString(1,newCircuitName);
+                    sql.statement.setString(2,newCountry);
+                    sql.statement.setFloat(3,newLength);
+                    sql.statement.setInt(4,newTurns);
+                    sql.statement.setInt(5, id);
+                    // Execute the query
+                    sql.statement.executeUpdate();
+                    return newC;
                 }
         );
     }
