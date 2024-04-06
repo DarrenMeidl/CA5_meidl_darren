@@ -1,5 +1,6 @@
-package org.example.DAO;
+package org.example;
 
+import org.example.DAO.MySqlCircuitDao;
 import org.example.DTO.Circuit;
 import org.example.Exceptions.DaoException;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ class MySqlCircuitDaoTest { // by Darren Meidl
     }
     // INSERT CIRCUIT TESTS
     @Test
-    void insertCircuitTestByName() throws DaoException { // By Darren Meidl
+    void insertCircuitTestByName() throws DaoException { // By Darren Meidl --- 06/04/2024
         System.out.println("TEST 1: 'insertCircuit()' ");
         String expected = "t1"; // the expected name
         Circuit test = new Circuit("t1", "t1Country", 1, 1); // create a test circuit
@@ -26,7 +27,7 @@ class MySqlCircuitDaoTest { // by Darren Meidl
         System.out.println("");
     }
     @Test
-    void insertCircuitTestByTurns() throws DaoException { // By Darren Meidl
+    void insertCircuitTestByTurns() throws DaoException { // By Darren Meidl --- 06/04/2024
         System.out.println("TEST 2: 'insertCircuit()' ");
         int expected = 2; // the expected number of turns
         Circuit test = new Circuit("t2", "t2Country", 2, 2); // create a test circuit
@@ -39,7 +40,7 @@ class MySqlCircuitDaoTest { // by Darren Meidl
 
     // UPDATE CIRCUIT TESTS
     @Test
-    void updateCircuitTestByName() throws DaoException { // By Darren Meidl
+    void updateCircuitTestByName() throws DaoException { // By Darren Meidl --- 06/04/2024
         System.out.println("TEST 1: 'updateCircuit()' ");
         String expected = "t1"; // the expected name
         Circuit test = new Circuit("t1", "t1Country", 1, 1); // create a test circuit
@@ -51,7 +52,7 @@ class MySqlCircuitDaoTest { // by Darren Meidl
     }
 
     @Test
-    void updateCircuitTestByTurns() throws DaoException { // By Darren Meidl
+    void updateCircuitTestByTurns() throws DaoException { // By Darren Meidl --- 06/04/2024
         System.out.println("TEST 2: 'updateCircuit()' ");
         int expected = 2; // the expected number of turns
         Circuit test = new Circuit("t2", "t2Country", 2, 2); // create a test circuit

@@ -3,11 +3,13 @@ package org.example.DAO;
 import org.example.DTO.Circuit;
 import org.example.Exceptions.DaoException;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 
 public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
 {
@@ -112,7 +114,6 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                     }
                     return newC; // After the if statement, it will ensure newC has the id of the row in the last executed statement (which is the newC object we passed in)
                 }
-
         );
     }
 
@@ -142,6 +143,18 @@ public class MySqlCircuitDao extends MySqlDao implements CircuitDaoInterface
                 }
         );
     }
+
+
+    // Written by Petr Sulc
+    public List<Circuit> findCircuitsUsingFilter(Predicate<Circuit> filter) throws DaoException
+    {
+        return getAllCircuits()
+                .stream()
+                .filter(filter)
+                .collect(Collectors.toList());
+    }
+
+
 }
 
 
