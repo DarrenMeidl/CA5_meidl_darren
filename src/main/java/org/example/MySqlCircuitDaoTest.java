@@ -47,7 +47,7 @@ class MySqlCircuitDaoTest { // by Darren Meidl
         dao.updateCircuit(1, test); // update circuit with id 1 with the test circuit fields
         String actual = dao.getCircuitById(1).getCircuitName(); // Get the name from the test Circuit from the test database
         assertEquals(expected, actual); // compare the strings
-        System.out.println("EXPECTED: "+expected+" ACTUAL: "+actual); // print the results
+        System.out.println("EXPECTED: "+expected+" ACTUAL: "+actual); // print the results of the test
         System.out.println("");
     }
 
@@ -59,7 +59,7 @@ class MySqlCircuitDaoTest { // by Darren Meidl
         dao.updateCircuit(1, test); // update circuit with id 1 with the test circuit fields
         int actual = dao.getCircuitById(1).getTurns(); // Get the turns from the test Circuit from the test database
         assertEquals(expected, actual); // compare the integers
-        System.out.println("EXPECTED: "+expected+" ACTUAL: "+actual); // print the results
+        System.out.println("EXPECTED: "+expected+" ACTUAL: "+actual); // print the results of the test
         System.out.println("");
     }
 }
