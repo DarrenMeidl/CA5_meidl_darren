@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalTime;
 import java.util.List;
 
 // Taken from oop-client-server-multithreaded-2024 sample
@@ -113,8 +112,9 @@ class ClientHandler implements Runnable   // each ClientHandler communicates wit
                 //
                 if (request.startsWith("1"))  // so, client wants the time !
                 {
-                    LocalTime time = LocalTime.now();  // get the time
-                    socketWriter.println(time);  // send the time to client (as a string of characters)
+                    Circuit c = circuitDaoInterface.getCircuitById(2);
+                    String jsonMessage = jsonConverter.circuitToJson(c);
+                    socketWriter.println(jsonMessage); // send the received message back to the client
                     System.out.println("Server message: time sent to client.");
 
                 } else if (request.startsWith("2")) {

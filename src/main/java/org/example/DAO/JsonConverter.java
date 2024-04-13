@@ -27,4 +27,10 @@ public class JsonConverter extends MySqlCircuitDao  {
         return gsonParser.toJson(circuitKey);
     }
 
+    public static Circuit jsonToCircuit(String json) throws DaoException {
+        Circuit c = gsonParser.fromJson(json, Circuit.class);
+        return c;
+    }
+
+
 }

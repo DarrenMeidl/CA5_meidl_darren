@@ -43,10 +43,16 @@ public class Client {
 
                 // process the answer returned by the server
                 //
-                if (userRequest.startsWith("1"))   // if user asked for "1", we expect the server to return a time (in milliseconds)
+                if (userRequest.startsWith("1")) // if the user has entered the "1" command
                 {
-                    String timeString = in.readLine();  // (blocks) waits for response from server, then input string terminated by a newline character ("\n")
-                    System.out.println("Client message: Response from server after \"time\" request: " + timeString);
+                    String response = in.readLine();
+                    Circuit circuit = JsonConverter.jsonToCircuit(in.readLine());
+                    System.out.println("ID: " + circuit.getId());
+                    System.out.println("Name: " + circuit.getCircuitName());
+                    System.out.println("Country: " + circuit.getCountry());
+                    System.out.println("Length: " + circuit.getLength());
+                    System.out.println("Turns: " + circuit.getTurns());
+                    System.out.println();
                 }
                 else if (userRequest.startsWith("2")) // if the user has entered the "2" command
                 {
@@ -61,7 +67,7 @@ public class Client {
                         System.out.println();
                     }
                 }
-                else if (userRequest.startsWith("3")) // if the user has entered the "quit" command
+                else if (userRequest.startsWith("3")) // if the user has entered the "3" command
                 {
                     String response = in.readLine();   // wait for response -
                     System.out.println("Client message: Response from server: \"" + response + "\"");
