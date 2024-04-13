@@ -45,8 +45,9 @@ public class Client {
                 //
                 if (userRequest.startsWith("1")) // if the user has entered the "1" command
                 {
+                    System.out.println("USER ENTERED 1");
                     String response = in.readLine();
-                    Circuit circuit = JsonConverter.jsonToCircuit(in.readLine());
+                    Circuit circuit = JsonConverter.jsonToCircuit(response);
                     System.out.println("ID: " + circuit.getId());
                     System.out.println("Name: " + circuit.getCircuitName());
                     System.out.println("Country: " + circuit.getCountry());

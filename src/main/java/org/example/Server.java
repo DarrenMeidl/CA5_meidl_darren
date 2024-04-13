@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.DAO.CircuitDaoInterface;
 import org.example.DAO.JsonConverter;
+import org.example.DAO.MySqlCircuitDao;
 import org.example.DTO.Circuit;
 import org.example.Exceptions.DaoException;
 
@@ -112,8 +113,10 @@ class ClientHandler implements Runnable   // each ClientHandler communicates wit
                 //
                 if (request.startsWith("1"))  // so, client wants the time !
                 {
-                    Circuit c = circuitDaoInterface.getCircuitById(2);
-                    String jsonMessage = jsonConverter.circuitToJson(c);
+                    MySqlCircuitDao dao = new MySqlCircuitDao(); // initialize
+                    JsonConverter jsonConverter1 = new JsonConverter();
+                    Circuit c = dao.getCircuitById(2);
+                    String jsonMessage = jsonConverter1.circuitToJson(c);
                     socketWriter.println(jsonMessage); // send the received message back to the client
                     System.out.println("Server message: time sent to client.");
 

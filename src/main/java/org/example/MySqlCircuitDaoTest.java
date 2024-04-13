@@ -7,16 +7,18 @@ import org.example.Exceptions.DaoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MySqlCircuitDaoTest { // by Darren Meidl
     private MySqlCircuitDao dao; // declare
     private JsonConverter Json; // declare - by Tomas Szabo
     @BeforeEach
     void setUp() {
-        dao = new MySqlCircuitDao(); // initialize
+        dao = new MySqlCircuitDao(); // initialize - by Darren Meidl
         Json = new JsonConverter(); // initialize - by Tomas Szabo
     }
     // INSERT CIRCUIT TESTS
