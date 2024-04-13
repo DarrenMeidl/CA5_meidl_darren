@@ -45,9 +45,11 @@ public class Server {
                 System.out.println("Server: Port number of remote client: " + clientSocket.getPort());
                 System.out.println("Server: Port number of the socket used to talk with client " + clientSocket.getLocalPort());
 
-                // create a new ClientHandler for the requesting client, passing in the socket and client number,
+                // create a new ClientHandler for the requesting client, passing in the socket, client number, JsonConverter & CircuitDaoInterface
+                JsonConverter j = new JsonConverter();
+                CircuitDaoInterface i = new MySqlCircuitDao();
                 // pass the handler into a new thread, and start the handler running in the thread.
-                Thread t = new Thread(new ClientHandler(clientSocket, clientNumber));
+                Thread t = new Thread(new ClientHandler(clientSocket, clientNumber, i, j));
                 t.start();
 
                 System.out.println("Server: ClientHandler started in thread " + t.getName() + " for client " + clientNumber + ". ");
@@ -86,7 +88,21 @@ class ClientHandler implements Runnable   // each ClientHandler communicates wit
     private CircuitDaoInterface circuitDaoInterface;
     private JsonConverter jsonConverter;
 
-    // Constructor
+    // Constructor by Darren Meidl --- 13/04/2024
+    public ClientHandler(Socket clientSocket, int clientNumber, CircuitDaoInterface i, JsonConverter j) {
+        this.clientSocket = clientSocket;  // store socket for closing later
+        this.clientNumber = clientNumber;  // ID number that we are assigning to this client
+        this.circuitDaoInterface = i;
+        this.jsonConverter = j;
+        try {
+            // assign to fields
+            this.socketWriter = new PrintWriter(clientSocket.getOutputStream(), true);
+            this.socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    // Old Constructor without json converter or interface
     public ClientHandler(Socket clientSocket, int clientNumber) {
         this.clientSocket = clientSocket;  // store socket for closing later
         this.clientNumber = clientNumber;  // ID number that we are assigning to this client
@@ -98,7 +114,6 @@ class ClientHandler implements Runnable   // each ClientHandler communicates wit
             ex.printStackTrace();
         }
     }
-
     // Taken from oop-client-server-multithreaded-2024 sample
 
     @Override
@@ -111,12 +126,13 @@ class ClientHandler implements Runnable   // each ClientHandler communicates wit
                 // Implement our PROTOCOL
                 // The protocol is the logic that determines the responses given based on requests received.
                 //
-                if (request.startsWith("1"))  // so, client wants the time !
+                if (request.startsWith("1"))
                 {
-                    MySqlCircuitDao dao = new MySqlCircuitDao(); // initialize
-                    JsonConverter jsonConverter1 = new JsonConverter();
-                    Circuit c = dao.getCircuitById(2);
-                    String jsonMessage = jsonConverter1.circuitToJson(c);
+                    String cID = socketReader.readLine(); // read id sent by client
+                    int id = Integer.parseInt(cID); // convert id to integer
+
+                    Circuit c = circuitDaoInterface.getCircuitById(id); // get circuit by id
+                    String jsonMessage = jsonConverter.circuitToJson(c);
                     socketWriter.println(jsonMessage); // send the received message back to the client
                     System.out.println("Server message: time sent to client.");
 

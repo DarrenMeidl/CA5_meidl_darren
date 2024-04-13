@@ -45,7 +45,10 @@ public class Client {
                 //
                 if (userRequest.startsWith("1")) // if the user has entered the "1" command
                 {
-                    System.out.println("USER ENTERED 1");
+                    System.out.println("Enter id of Circuit: ");
+                    String id = consoleInput.nextLine();
+                    out.println(id); // send id to server
+
                     String response = in.readLine();
                     Circuit circuit = JsonConverter.jsonToCircuit(response);
                     System.out.println("ID: " + circuit.getId());
@@ -58,7 +61,7 @@ public class Client {
                 else if (userRequest.startsWith("2")) // if the user has entered the "2" command
                 {
                     String response = in.readLine();
-                    List<Circuit> CircuitList = JsonConverter.jsonToCircuitList(in.readLine());
+                    List<Circuit> CircuitList = JsonConverter.jsonToCircuitList(response);
                     for (Circuit circuit : CircuitList) {
                         System.out.println("ID: " + circuit.getId());
                         System.out.println("Name: " + circuit.getCircuitName());
