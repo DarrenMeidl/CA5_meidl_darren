@@ -32,7 +32,13 @@ public class Client {
             System.out.println("Client message: The Client is running and has connected to the server");
             //ask user to enter a command
             Scanner consoleInput = new Scanner(System.in);
-            System.out.println("Valid commands are: \"1\" to Display Entity by Id, or \"2\" to “Display all Entities, \"3\" to “Add an Entity.");
+            System.out.println("|********************************|");
+            System.out.println("|***** F1 CIRCUITS DATABASE *****|");
+            System.out.println("|********************************|");
+            System.out.println("1. Display Circuit by ID");
+            System.out.println("2. Display All Circuits");
+            System.out.println("3. Add a Circuit");
+            System.out.println("4. Quit");
             System.out.println("Please enter a command: ");
             String userRequest = consoleInput.nextLine();
 
@@ -43,23 +49,26 @@ public class Client {
 
                 // process the answer returned by the server
                 //
-                if (userRequest.startsWith("1")) // if the user has entered the "1" command
+                if (userRequest.startsWith("1")) // if the user has entered the "1" command i.e. display entity by id
                 {
-                    System.out.println("Enter id of Circuit: ");
-                    String id = consoleInput.nextLine();
+                    System.out.println("++DISPLAY CIRCUIT BY ID++");
+                    System.out.println("Enter the ID of a Circuit you want to find.. ");
+                    String id = consoleInput.nextLine(); // read user's input
                     out.println(id); // send id to server
 
-                    String response = in.readLine();
-                    Circuit circuit = JsonConverter.jsonToCircuit(response);
+                    String response = in.readLine(); // get new circuit from server
+                    Circuit circuit = JsonConverter.jsonToCircuit(response); // convert json to circuit
+                    // Print the circuit
+                    System.out.println("---"+circuit.getCircuitName()+"---");
                     System.out.println("ID: " + circuit.getId());
-                    System.out.println("Name: " + circuit.getCircuitName());
                     System.out.println("Country: " + circuit.getCountry());
                     System.out.println("Length: " + circuit.getLength());
                     System.out.println("Turns: " + circuit.getTurns());
                     System.out.println();
                 }
-                else if (userRequest.startsWith("2")) // if the user has entered the "2" command
+                else if (userRequest.startsWith("2")) // if the user has entered the "2" command i.e. display all entities
                 {
+                    System.out.println("++DISPLAY ALL CIRCUITS++");
                     String response = in.readLine();
                     List<Circuit> CircuitList = JsonConverter.jsonToCircuitList(response);
                     for (Circuit circuit : CircuitList) {
@@ -73,6 +82,14 @@ public class Client {
                 }
                 else if (userRequest.startsWith("3")) // if the user has entered the "3" command
                 {
+                    System.out.println("++ADD A CIRCUIT++");
+                    String response = in.readLine();   // wait for response -
+                    System.out.println("Client message: Response from server: \"" + response + "\"");
+                    break;  // break out of while loop, client will exit.
+                }
+                else if (userRequest.startsWith("4")) // if the user has entered the "4" command i.e. Quit
+                {
+                    System.out.println("Goodbye :(");
                     String response = in.readLine();   // wait for response -
                     System.out.println("Client message: Response from server: \"" + response + "\"");
                     break;  // break out of while loop, client will exit.
@@ -81,8 +98,15 @@ public class Client {
                     System.out.println("Command unknown. Try again.");
                 }
 
+                //ask user to enter a command again
                 consoleInput = new Scanner(System.in);
-                System.out.println("Valid commands are: \"1\" to Display Entity by Id, or \"2\" to Display all Entities, \"3\" to Add an Entity.");
+                System.out.println("|********************************|");
+                System.out.println("|***** F1 CIRCUITS DATABASE *****|");
+                System.out.println("|********************************|");
+                System.out.println("1. Display Circuit by ID");
+                System.out.println("2. Display All Circuits");
+                System.out.println("3. Add a Circuit");
+                System.out.println("4. Quit");
                 System.out.println("Please enter a command: ");
                 userRequest = consoleInput.nextLine();
             }
