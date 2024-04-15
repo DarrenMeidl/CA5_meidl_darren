@@ -98,7 +98,7 @@ public class Client {
                             System.out.println("Client message: Response from server: \"" + response + "\"");
                         break;
                     case DELETE_CIRCUIT:
-                        //
+                        // By Darren Meidl --- 15/04/2024
                         System.out.println("++DELETE CIRCUIT BY ID++");
                         System.out.print("Enter the ID of a Circuit you want to delete: ");
                         id = consoleInput.nextLine(); // read user's input
@@ -134,7 +134,12 @@ public class Client {
     // By Petr Sulc --- 14/04/2024
     private void printCircuit(Circuit circuit)
     {
-        System.out.printf("---%s---%nID: %s%nCountry: %s%nLength: %s%nTurns: %s%n%n",
-                circuit.getCircuitName(),circuit.getId(),circuit.getCountry(),circuit.getLength(),circuit.getTurns());
+        /*System.out.printf("---%s---%nID: %s%nCountry: %s%nLength: %s%nTurns: %s%n%n",
+                circuit.getCircuitName(),circuit.getId(),circuit.getCountry(),circuit.getLength(),circuit.getTurns());*/
+        System.out.printf("--- "+circuit.getCircuitName()+" ---" + '\'' +
+                "ID: " + circuit.getId() + '\'' +
+                "Country: " + circuit.getCountry() + '\'' +
+                "Length: "  + circuit.getLength() + '\'' +
+                "Turns: "  + circuit.getTurns() + '\'');
     }
 }

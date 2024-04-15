@@ -67,12 +67,10 @@ public class Circuit
 
     @Override
     public String toString() {
-        return "Circuit{" +
-                "id=" + id +
-                ", circuitName='" + circuitName + '\'' +
-                ", country='" + country + '\'' +
-                ", length=" + length +
-                ", turns=" + turns +
-                '}';
+        return "--- "+circuitName+" ---" + '\'' +
+                "ID: " + id + '\'' +
+                "Country: " + country + '\'' +
+                "Length: "  + length + '\'' +
+                "Turns: "  + turns + '\'';
     }
 }
