@@ -154,13 +154,12 @@ class ClientHandler implements Runnable   // each ClientHandler communicates wit
                         break;
                     case DELETE_CIRCUIT:
                         // By Darren Meidl --- 15/04/2024
-                        /*String cID = socketReader.readLine(); // read id sent by client
-                        int id = Integer.parseInt(cID); // convert id to integer
-                        Circuit c = circuitDaoInterface.getCircuitById(id); // get circuit by id
+                        cID = socketReader.readLine(); // read id sent by client
+                        id = Integer.parseInt(cID); // convert id to integer
+                        c = circuitDaoInterface.deleteCircuitById(id); // delete circuit by id
                         jsonMessage = jsonConverter.circuitToJson(c);
                         socketWriter.println(jsonMessage); // send the received message back to the client
                         System.out.println("Server message: circuit with id " + id + " sent to client.");
-                        */
                         break;
                     case DISCONNECT:
                         socketWriter.println("Sorry to see you leaving. Goodbye.");
